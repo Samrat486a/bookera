@@ -1,0 +1,37 @@
+{
+  "name": "bookera",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "db:seed-sql": "node backend/scripts/export-seed-sql.mts",
+    "backend:sync": "bash backend/scripts/sync-xampp.sh",
+    "backend:test": "python3 backend/tests/auth_test.py && python3 backend/tests/catalog_test.py",
+    "backend:test:auth": "python3 backend/tests/auth_test.py",
+    "backend:test:catalog": "python3 backend/tests/catalog_test.py",
+    "deploy:package": "bash backend/scripts/package-hostinger.sh"
+  },
+  "dependencies": {
+    "lucide-react": "^1.48.0",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.3.289",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}

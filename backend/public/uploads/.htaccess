@@ -1,0 +1,23 @@
+# Uploaded covers: images only. Nothing here may ever be executed.
+Options -Indexes -ExecCGI
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar .pl .py .cgi
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+<IfModule php_module>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+
+# Only serve image files; everything else is refused
+<FilesMatch "\.(?i:jpe?g|png|webp)$">
+  Require all granted
+</FilesMatch>
+<FilesMatch "^(?!.*\.(?i:jpe?g|png|webp)$).*$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</IfModule>

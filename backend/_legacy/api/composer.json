@@ -1,0 +1,14 @@
+{
+  "name": "bookera/api",
+  "description": "Bookera PHP API",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-pdo": "*",
+    "ext-mbstring": "*",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

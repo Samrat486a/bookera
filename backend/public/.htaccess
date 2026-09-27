@@ -1,0 +1,24 @@
+# Bookera API (public)
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+
+# Internal helper files (_init.php etc.) and dotfiles are never served directly
+<FilesMatch "^(_.*|\..*)$">
+  Require all denied
+</FilesMatch>
+
+# Hide PHP version
+<IfModule mod_headers.c>
+  Header always unset X-Powered-By
+</IfModule>
+
+# PHP settings (Apache + mod_php, e.g. XAMPP). Hostinger reads .user.ini instead.
+<IfModule php_module>
+  php_flag display_errors Off
+  php_value upload_max_filesize 100M
+  php_value post_max_size 110M
+  php_value max_execution_time 120
+</IfModule>
+
+# Optional: point to the private app folder explicitly
+# SetEnv BOOKERA_APP_DIR /home/u123456789/bookera_app

@@ -1,0 +1,2 @@
+# Private application folder — must never be web-accessible.
+Require all denied

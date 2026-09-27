@@ -1,0 +1,16 @@
+# Bookera API — Apache rules (Hostinger)
+Options -Indexes
+
+# Never serve config, internals or dependencies directly
+<FilesMatch "^(config\.php|config\.sample\.php|bootstrap\.php|composer\.(json|lock))$">
+  Require all denied
+</FilesMatch>
+RewriteEngine On
+RewriteRule ^(lib|cron|vendor)(/|$) - [F,L]
+
+# PHP defaults
+<IfModule mod_php.c>
+  php_flag display_errors Off
+  php_value upload_max_filesize 64M
+  php_value post_max_size 64M
+</IfModule>

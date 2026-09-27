@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f4ee;
+  --color-paper-2: #efece3;
+  --color-ink: #14171b;
+  --color-ink-2: #3b4048;
+  --color-muted: #6b7079;
+  --color-line: #e4e0d5;
+  --color-line-2: #d6d1c3;
+  --color-indigo: #3654ff;
+  --color-indigo-600: #2440e6;
+  --color-indigo-50: #eef1ff;
+  --color-saffron: #ffae1f;
+  --color-saffron-50: #fff5e0;
+  --color-saffron-700: #9a5d00;
+  --color-coral: #ff5d5d;
+  --color-coral-50: #fff0ee;
+  --color-coral-700: #c62f2f;
+  --color-leaf: #1f8a5b;
+  --color-leaf-50: #e8f5ee;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(20 23 27 / 0.04), 0 4px 16px -6px rgb(20 23 27 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(20 23 27 / 0.05), 0 18px 40px -14px rgb(20 23 27 / 0.22);
+  --shadow-book: 0 1px 1px rgb(20 23 27 / 0.08), 0 10px 24px -8px rgb(20 23 27 / 0.35);
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-pop-in: pop-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-slide-in: slide-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  --animate-draw: draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.5s both;
+  --animate-type-line: type-line 7s cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+  --animate-blink: blink 1s steps(2, start) infinite;
+  --animate-grow-x: grow-x 5.5s linear both;
+  --animate-spin-slow: spin 18s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes slide-in {
+    from { transform: translateX(-100%); }
+    to { transform: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+    50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
+  }
+  @keyframes type-line {
+    0% { transform: scaleX(0); opacity: 1; }
+    12%, 84% { transform: scaleX(1); opacity: 1; }
+    94%, 100% { transform: scaleX(1); opacity: 0; }
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+  @keyframes grow-x {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes shimmer {
+    from { background-position: -400px 0; }
+    to { background-position: 400px 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--color-saffron);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-indigo);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button:not(:disabled), [role="button"] {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-sans text-xs font-semibold tracking-[0.14em] text-muted uppercase;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(20 23 27 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(20 23 27 / 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  /* Hover glow layers: soft bands either side of each line fake a glow
+     without CSS filters (painted once, never re-rendered). */
+  .bg-grid-glow {
+    --c: 54 84 255;
+    background-image:
+      linear-gradient(to right, rgb(var(--c) / 0.7) 0 1px, rgb(var(--c) / 0.16) 1px 3px, transparent 3px 29px, rgb(var(--c) / 0.16) 29px 32px),
+      linear-gradient(to bottom, rgb(var(--c) / 0.7) 0 1px, rgb(var(--c) / 0.16) 1px 3px, transparent 3px 29px, rgb(var(--c) / 0.16) 29px 32px);
+    background-size: 32px 32px;
+  }
+  .bg-grid-warm {
+    --c: 255 174 31;
+    background-image:
+      linear-gradient(to right, rgb(var(--c) / 0.95) 0 1px, rgb(var(--c) / 0.22) 1px 3px, transparent 3px 29px, rgb(var(--c) / 0.22) 29px 32px),
+      linear-gradient(to bottom, rgb(var(--c) / 0.95) 0 1px, rgb(var(--c) / 0.22) 1px 3px, transparent 3px 29px, rgb(var(--c) / 0.22) 29px 32px);
+    background-size: 32px 32px;
+  }
+  /* stronger lines every 4th cell */
+  .bg-grid-major {
+    background-image:
+      linear-gradient(to right, rgb(20 23 27 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(20 23 27 / 0.055) 1px, transparent 1px);
+    background-size: 128px 128px;
+  }
+  /* tiny “+” marks at major crossings */
+  .bg-grid-cross {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cpath d='M64.5 59v11M59 64.5h11' stroke='%2314171B' stroke-opacity='.32' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    background-position: -64px -64px;
+  }
+  /* glowing dots where lines cross (halo baked into the gradient) */
+  .bg-grid-nodes {
+    background-image: radial-gradient(circle at 0.5px 0.5px, rgb(54 84 255) 0 1.6px, rgb(54 84 255 / 0.35) 2.4px, rgb(54 84 255 / 0.1) 4px, transparent 6px);
+    background-size: 32px 32px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgb(20 23 27 / 0.16) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .bg-dots-light {
+    background-image: radial-gradient(rgb(255 255 255 / 0.22) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #ebe7dc 0px, #f4f1e9 80px, #ebe7dc 160px);
+    background-size: 800px 100%;
+    @apply animate-shimmer;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* keep looping float animations on the GPU compositor */
+.animate-float {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reader page-turn */
+@keyframes page-next {
+  from { opacity: 0; transform: translateX(18px) rotateY(-4deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes page-prev {
+  from { opacity: 0; transform: translateX(-18px) rotateY(4deg); }
+  to { opacity: 1; transform: none; }
+}
+
